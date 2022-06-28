@@ -1,4 +1,5 @@
 #include <iostream>
+#pragma warning(disable:4996)
 
 using namespace std;
 
@@ -66,6 +67,35 @@ int main(int arc, char* argv[]) {    // glowny program
     fwrite(&Plik.zarezerwowane1, sizeof(Plik.zarezerwowane1), 1, negatyw);
     fwrite(&Plik.zarezerwowane2, sizeof(Plik.zarezerwowane2), 1, negatyw);
     fwrite(&Plik.pozycjaDanych, sizeof(Plik.pozycjaDanych), 1, negatyw);
+
+    fseek(negatyw, 14, SEEK_SET);  // // tworzenie negatywu obrazu (dane obrazu)
+    fwrite(&Obraz.wieloscNaglowkaInfo, sizeof(Obraz.wieloscNaglowkaInfo), 1, negatyw);
+    fwrite(&Obraz.szerokoscObrazu, sizeof(Obraz.szerokoscObrazu), 1, negatyw);
+    fwrite(&Obraz.wysokoscObrazu, sizeof(Obraz.wysokoscObrazu), 1, negatyw);
+    fwrite(&Obraz.liczbaWarstKol, sizeof(Obraz.liczbaWarstKol), 1, negatyw);
+    fwrite(&Obraz.liczbaBitow, sizeof(Obraz.liczbaBitow), 1, negatyw);
+    fwrite(&Obraz.algorytmKompresji, sizeof(Obraz.algorytmKompresji), 1, negatyw);
+    fwrite(&Obraz.rozmiarRysunku, sizeof(Obraz.rozmiarRysunku), 1, negatyw);
+    fwrite(&Obraz.rozdzielczoscPozioma, sizeof(Obraz.rozdzielczoscPozioma), 1, negatyw);
+    fwrite(&Obraz.rozdzielczoscPionowa, sizeof(Obraz.rozdzielczoscPionowa), 1, negatyw);
+    fwrite(&Obraz.liczbaKolorowPaleta, sizeof(Obraz.liczbaKolorowPaleta), 1, negatyw);
+    fwrite(&Obraz.wazneKolory, sizeof(Obraz.wazneKolory), 1, negatyw);
+    fseek(negatyw, sizeof(Plik.pozycjaDanych), SEEK_SET);
+
+    int negatywObraz;
+    for (int i = Plik.pozycjaDanych; i < Plik.rozmiarPliku; i++)
+    {
+        fseek(plik, i, SEEK_SET);
+        fseek(negatyw, i, SEEK_SET);
+        fread(&negatywObraz, 3, 1, plik);
+        negatywObraz = INT_MAX - negatywObraz;
+        fwrite(&negatywObraz, 3, 1, negatyw);
+
+        fclose(plik);     // zamkniecie plikow
+        fclose(negatyw);
+
+        cout << "\n>>>Utworzono negatyw obrazu." << endl; // wyswietlenie informacji o utworzeniu negatywu
+    }
 
 
     return 0;
