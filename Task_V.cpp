@@ -9,3 +9,17 @@ struct naglowekPliku {    // dane naglowka pliku
     short zarezerwowane2;
     int pozycjaDanych;
 } Plik;
+
+struct naglowekObrazu {    // dane naglowka obrazu
+    int wieloscNaglowkaInfo;
+    int szerokoscObrazu;
+    int wysokoscObrazu;
+    short liczbaWarstKol;
+    short liczbaBitow;
+    int algorytmKompresji;
+    int rozmiarRysunku;
+    int rozdzielczoscPozioma;
+    int rozdzielczoscPionowa;
+    int liczbaKolorowPaleta;
+    int wazneKolory;
+} Obraz;
