@@ -60,6 +60,12 @@ int main(int arc, char* argv[]) {    // glowny program
         cout << "\nTrwa tworzenie negatywu obrazu...\n";
     }
 
+    fseek(negatyw, 0, SEEK_SET);   // tworzenie negatywu obrazu (dane pliku)
+    fwrite(&Plik.typ, sizeof(Plik.typ), 1, negatyw);
+    fwrite(&Plik.rozmiarPliku, sizeof(Plik.rozmiarPliku), 1, negatyw);
+    fwrite(&Plik.zarezerwowane1, sizeof(Plik.zarezerwowane1), 1, negatyw);
+    fwrite(&Plik.zarezerwowane2, sizeof(Plik.zarezerwowane2), 1, negatyw);
+    fwrite(&Plik.pozycjaDanych, sizeof(Plik.pozycjaDanych), 1, negatyw);
 
 
     return 0;
