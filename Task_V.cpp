@@ -49,6 +49,18 @@ int main(int arc, char* argv[]) {    // glowny program
     fread(&Plik.pozycjaDanych, sizeof(Plik.pozycjaDanych), 1, plik);
     cout << "Pozycja danych obrazkowych: " << Plik.pozycjaDanych << endl;
 
+    FILE* negatyw = fopen("negatyw.bmp", "wb");  // tworzenie negatywu obrazu
+    if (negatyw == nullptr)
+    {
+        cout << "Blad! Nie mozna utworzyc negatywu...!";
+        return -1;
+    }
+    else
+    {
+        cout << "\nTrwa tworzenie negatywu obrazu...\n";
+    }
+
+
 
     return 0;
 }
